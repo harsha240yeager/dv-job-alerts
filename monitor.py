@@ -236,6 +236,9 @@ def send_email(subject, body, alert_to):
     host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
     port = int(os.environ.get("SMTP_PORT", "587"))
     to = os.environ.get("ALERT_TO", alert_to)
+    # Some providers (Brevo, SendGrid, Mailjet) use a login that is NOT a valid
+    # "From" address, so allow an explicit sender via EMAIL_FROM.
+    sender = os.environ.get("EMAIL_FROM", user)
     if not (user and password and to):
         print("!! SMTP_USER / SMTP_PASS / recipient not set; skipping email.",
               file=sys.stderr)
@@ -243,13 +246,13 @@ def send_email(subject, body, alert_to):
         return False
     msg = MIMEText(body, "plain", "utf-8")
     msg["Subject"] = subject
-    msg["From"] = user
+    msg["From"] = sender
     msg["To"] = to
     msg["Date"] = formatdate(localtime=True)
     with smtplib.SMTP(host, port, timeout=TIMEOUT) as server:
         server.starttls()
         server.login(user, password)
-        server.sendmail(user, [to], msg.as_string())
+        server.sendmail(sender, [to], msg.as_string())
     print(f"Emailed {to}.")
     return True
 
