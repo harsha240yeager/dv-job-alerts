@@ -231,14 +231,16 @@ def render_email(jobs, cfg=None):
 
 
 def send_email(subject, body, alert_to):
-    user = os.environ.get("SMTP_USER")
-    password = os.environ.get("SMTP_PASS")
-    host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
-    port = int(os.environ.get("SMTP_PORT", "587"))
-    to = os.environ.get("ALERT_TO", alert_to)
+    # Use `or` (not the get default) so empty-string env vars also fall back -
+    # GitHub Actions injects unset secrets as "".
+    user = os.environ.get("SMTP_USER") or ""
+    password = os.environ.get("SMTP_PASS") or ""
+    host = os.environ.get("SMTP_HOST") or "smtp.gmail.com"
+    port = int(os.environ.get("SMTP_PORT") or "587")
+    to = os.environ.get("ALERT_TO") or alert_to
     # Some providers (Brevo, SendGrid, Mailjet) use a login that is NOT a valid
     # "From" address, so allow an explicit sender via EMAIL_FROM.
-    sender = os.environ.get("EMAIL_FROM", user)
+    sender = os.environ.get("EMAIL_FROM") or user
     if not (user and password and to):
         print("!! SMTP_USER / SMTP_PASS / recipient not set; skipping email.",
               file=sys.stderr)
