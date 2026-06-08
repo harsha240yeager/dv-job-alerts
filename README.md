@@ -16,9 +16,21 @@ GitHub Actions cron — no server, nothing to keep running on your laptop.
 | Ashby | Etched, d-Matrix |
 | Lever | Mythic |
 | Workday | NVIDIA, Intel, Broadcom, Marvell, Micron |
+| LinkedIn (guest search) | AMD, Qualcomm, Apple, Google, Microsoft, Amazon, Meta, Texas Instruments |
 
-> **AMD, Qualcomm, Apple, Google** block scripted access to their boards, so set
-> up a LinkedIn alert for those (see bottom). Everything else is automated here.
+The LinkedIn source covers companies whose own boards block scripted access. It
+queries each company by name and keeps only cards that actually match that
+company. It is **best-effort** — LinkedIn sometimes rate-limits cloud IPs, in
+which case that source is skipped for the run and the email footer reminds you to
+check AMD / Qualcomm / Apple / Google manually.
+
+### Current filters (see `config.json`)
+
+- **`intern_only: true`** — only postings with "intern"/"co-op" in the title.
+- **Keywords** — verification, RTL, Verilog, UVM, computer architecture, DV,
+  **FPGA, validation, DFT**.
+- **`us_only: true`** — drops obviously non-US locations.
+- You only ever get emailed about **new** postings (deduped via `state/seen.json`).
 
 ## How it works
 

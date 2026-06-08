@@ -1,13 +1,14 @@
 {
   "alert_to": "hnarra@usc.edu",
   "us_only": true,
+  "intern_only": true,
   "manual_companies": [
     "AMD",
     "Qualcomm",
     "Apple",
     "Google"
   ],
-  "manual_note": "These boards block automated checks - set a LinkedIn job alert for 'Design Verification' in the United States to cover them.",
+  "manual_note": "These boards block direct API checks - now covered best-effort via LinkedIn below. If LinkedIn is rate-limited on a run, double-check them manually.",
   "match_terms": [
     "verif",
     "rtl",
@@ -16,15 +17,19 @@
     "computer architect",
     "microarchitect",
     "design verification",
-    "dv "
+    "dv ",
+    "fpga",
+    "validation",
+    "dft",
+    "design for test"
   ],
   "workday_search_terms": [
-    "design verification",
-    "verification",
-    "RTL",
-    "Verilog",
-    "UVM",
-    "computer architecture"
+    "design verification intern",
+    "verification intern",
+    "RTL intern",
+    "FPGA intern",
+    "validation intern",
+    "DFT intern"
   ],
   "sources": [
     { "company": "Tenstorrent (University)", "type": "greenhouse", "slug": "tenstorrentuniversity" },
@@ -39,6 +44,21 @@
     { "company": "Intel", "type": "workday", "host": "intel.wd1.myworkdayjobs.com", "tenant": "intel", "site": "External" },
     { "company": "Broadcom", "type": "workday", "host": "broadcom.wd1.myworkdayjobs.com", "tenant": "broadcom", "site": "External_Career" },
     { "company": "Marvell", "type": "workday", "host": "marvell.wd1.myworkdayjobs.com", "tenant": "marvell", "site": "MarvellCareers2" },
-    { "company": "Micron", "type": "workday", "host": "micron.wd1.myworkdayjobs.com", "tenant": "micron", "site": "External" }
+    { "company": "Micron", "type": "workday", "host": "micron.wd1.myworkdayjobs.com", "tenant": "micron", "site": "External" },
+    {
+      "company": "LinkedIn",
+      "type": "linkedin",
+      "location": "United States",
+      "posted_within": "r2592000",
+      "companies": [
+        "AMD", "Qualcomm", "Apple", "Google",
+        "Microsoft", "Amazon", "Meta", "Texas Instruments"
+      ],
+      "role_queries": [
+        "verification intern",
+        "FPGA intern",
+        "DFT validation intern"
+      ]
+    }
   ]
 }

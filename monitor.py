@@ -20,12 +20,15 @@ Run modes:
     python monitor.py --no-email # fetch + update state, print instead of emailing
 """
 
+import html
 import json
 import os
+import re
 import smtplib
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from email.mime.text import MIMEText
 from email.utils import formatdate
@@ -36,7 +39,12 @@ CONFIG_PATH = ROOT / "config.json"
 STATE_PATH = ROOT / "state" / "seen.json"
 
 UA = "Mozilla/5.0 (compatible; dv-job-alerts/1.0)"
+BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 TIMEOUT = 30
+
+# Title must contain one of these (word-boundary) when intern_only is enabled.
+INTERN_RE = re.compile(r"\b(intern|interns|internship|co-?op)\b", re.IGNORECASE)
 
 # Locations containing any of these markers are treated as non-US and dropped
 # when us_only is enabled. Anything not matching is kept (US or ambiguous).
@@ -96,6 +104,11 @@ def is_us(location, us_only):
         return True
     loc = (location or "").lower()
     return not any(marker in loc for marker in NON_US_MARKERS)
+
+
+def is_intern(title):
+    # Word-boundary so "Internal IP" etc. is NOT treated as an internship.
+    return bool(INTERN_RE.search(title or ""))
 
 
 # --- Source fetchers: each returns a list of dicts {id,title,location,url,company} ---
@@ -174,6 +187,85 @@ def fetch_workday(src, search_terms):
     return list(found.values())
 
 
+def _clean(text):
+    return html.unescape(re.sub(r"<[^>]+>", "", text or "")).strip()
+
+
+def _linkedin_search(query, location, tpr):
+    """Returns list of parsed cards: {id,title,company,location,url}."""
+    params = urllib.parse.urlencode({
+        "keywords": query, "location": location, "f_TPR": tpr, "start": 0,
+    })
+    req = urllib.request.Request(
+        "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?" + params,
+        headers={"User-Agent": BROWSER_UA, "Accept": "text/html"},
+    )
+    with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+        page = resp.read().decode("utf-8", errors="replace")
+    cards = []
+    # Each job card starts at a base-card div; split on it so fields stay aligned.
+    for chunk in re.split(r'<div class="base-card', page)[1:]:
+        urn = re.search(r'urn:li:jobPosting:(\d+)', chunk)
+        if not urn:
+            continue
+        jid = urn.group(1)
+        title_m = re.search(r'base-search-card__title">\s*(.*?)\s*</h3>', chunk, re.S)
+        comp_m = re.search(r'base-search-card__subtitle">\s*(.*?)\s*</h4>', chunk, re.S)
+        loc_m = re.search(r'job-search-card__location">\s*(.*?)\s*</span>', chunk, re.S)
+        link_m = re.search(r'href="(https://[^"]*?/jobs/view/[^"]+?)"', chunk)
+        cards.append({
+            "id": jid,
+            "title": _clean(title_m.group(1)) if title_m else "",
+            "company": _clean(comp_m.group(1)) if comp_m else "",
+            "location": _clean(loc_m.group(1)) if loc_m else location,
+            "url": (link_m.group(1).split("?")[0]
+                    if link_m else f"https://www.linkedin.com/jobs/view/{jid}"),
+        })
+    return cards
+
+
+def fetch_linkedin(src):
+    """LinkedIn public 'jobs-guest' search (no login) to cover companies whose
+    own boards block automation (AMD, Qualcomm, ...).
+
+    Queries each company by name and keeps only cards whose company actually
+    matches, so unrelated fuzzy results are discarded. Best-effort: LinkedIn may
+    rate-limit datacenter IPs, in which case the source is skipped for that run.
+    """
+    location = src.get("location", "United States")
+    tpr = src.get("posted_within", "r2592000")  # default: last 30 days
+    companies = src.get("companies", [])
+    roles = src.get("role_queries", ["verification intern"])
+    found = {}
+
+    def add(card, label):
+        found[card["id"]] = {
+            "id": f"li:{card['id']}",
+            "title": card["title"],
+            "location": card["location"],
+            "url": card["url"],
+            "company": f"{label} (via LinkedIn)",
+        }
+
+    targets = companies if companies else [None]
+    for company in targets:
+        for role in roles:
+            query = f"{company} {role}" if company else role
+            try:
+                cards = _linkedin_search(query, location, tpr)
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError):
+                continue
+            for card in cards:
+                if company:
+                    if company.lower() not in card["company"].lower():
+                        continue
+                    add(card, company)
+                else:
+                    add(card, card["company"] or "LinkedIn")
+            time.sleep(0.4)
+    return list(found.values())
+
+
 FETCHERS = {
     "greenhouse": fetch_greenhouse,
     "ashby": fetch_ashby,
@@ -185,19 +277,24 @@ def collect(cfg):
     terms = [t.lower() for t in cfg["match_terms"]]
     wd_terms = cfg.get("workday_search_terms", ["verification"])
     us_only = cfg.get("us_only", True)
+    intern_only = cfg.get("intern_only", False)
     matches = []
     for src in cfg["sources"]:
         typ = src["type"]
         try:
             if typ == "workday":
                 jobs = fetch_workday(src, wd_terms)
+            elif typ == "linkedin":
+                jobs = fetch_linkedin(src)
             else:
                 jobs = FETCHERS[typ](src)
         except Exception as e:  # noqa: BLE001 - keep monitor resilient per-source
             print(f"  ! {src['company']} ({typ}) failed: {e}", file=sys.stderr)
             continue
         kept = [j for j in jobs
-                if title_matches(j["title"], terms) and is_us(j["location"], us_only)]
+                if title_matches(j["title"], terms)
+                and is_us(j["location"], us_only)
+                and (not intern_only or is_intern(j["title"]))]
         print(f"  {src['company']}: {len(kept)} matching of {len(jobs)} fetched")
         matches.extend(kept)
     # dedupe by id
