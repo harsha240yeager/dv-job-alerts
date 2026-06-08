@@ -1,7 +1,7 @@
 {
   "alert_to": "hnarra@usc.edu",
   "us_only": true,
-  "intern_only": true,
+  "intern_only": false,
   "manual_companies": [
     "AMD",
     "Qualcomm",
@@ -24,12 +24,13 @@
     "design for test"
   ],
   "workday_search_terms": [
-    "design verification intern",
-    "verification intern",
-    "RTL intern",
-    "FPGA intern",
-    "validation intern",
-    "DFT intern"
+    "design verification",
+    "verification",
+    "RTL",
+    "FPGA",
+    "validation",
+    "DFT",
+    "computer architecture"
   ],
   "sources": [
     { "company": "Tenstorrent (University)", "type": "greenhouse", "slug": "tenstorrentuniversity" },
@@ -55,9 +56,9 @@
         "Microsoft", "Amazon", "Meta", "Texas Instruments"
       ],
       "role_queries": [
-        "verification intern",
-        "FPGA intern",
-        "DFT validation intern"
+        "design verification",
+        "FPGA",
+        "DFT validation"
       ]
     }
   ]

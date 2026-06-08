@@ -45,6 +45,9 @@ TIMEOUT = 30
 
 # Title must contain one of these (word-boundary) when intern_only is enabled.
 INTERN_RE = re.compile(r"\b(intern|interns|internship|co-?op)\b", re.IGNORECASE)
+NEWGRAD_RE = re.compile(
+    r"\b(new ?grad|university grad(uate)?|early career|recent grad(uate)?|"
+    r"campus|rotational|graduate program)\b", re.IGNORECASE)
 
 # Locations containing any of these markers are treated as non-US and dropped
 # when us_only is enabled. Anything not matching is kept (US or ambiguous).
@@ -109,6 +112,14 @@ def is_us(location, us_only):
 def is_intern(title):
     # Word-boundary so "Internal IP" etc. is NOT treated as an internship.
     return bool(INTERN_RE.search(title or ""))
+
+
+def classify_level(title):
+    if INTERN_RE.search(title or ""):
+        return "Intern"
+    if NEWGRAD_RE.search(title or ""):
+        return "New Grad"
+    return "Full-time"
 
 
 # --- Source fetchers: each returns a list of dicts {id,title,location,url,company} ---
@@ -302,16 +313,29 @@ def collect(cfg):
     return list(dedup.values())
 
 
+LEVEL_ORDER = {"Intern": 0, "New Grad": 1, "Full-time": 2}
+
+
 def render_email(jobs, cfg=None):
+    for j in jobs:
+        j.setdefault("level", classify_level(j["title"]))
+    counts = {}
+    for j in jobs:
+        counts[j["level"]] = counts.get(j["level"], 0) + 1
+    summary = ", ".join(f"{counts[k]} {k}" for k in
+                        sorted(counts, key=lambda k: LEVEL_ORDER.get(k, 9)))
+
     by_company = {}
-    for j in sorted(jobs, key=lambda x: (x["company"], x["title"])):
+    for j in jobs:
         by_company.setdefault(j["company"], []).append(j)
-    lines = [f"{len(jobs)} matching DV / RTL / verification opening(s):", ""]
+    lines = [f"{len(jobs)} matching DV / RTL / verification opening(s)"
+             + (f" ({summary})" if summary else "") + ":", ""]
     for company, items in sorted(by_company.items()):
+        items.sort(key=lambda x: (LEVEL_ORDER.get(x["level"], 9), x["title"]))
         lines.append(f"=== {company} ({len(items)}) ===")
         for j in items:
             loc = f"  [{j['location']}]" if j["location"] else ""
-            lines.append(f"  - {j['title']}{loc}")
+            lines.append(f"  - [{j['level']}] {j['title']}{loc}")
             lines.append(f"    {j['url']}")
         lines.append("")
 

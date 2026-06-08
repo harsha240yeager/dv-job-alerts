@@ -26,7 +26,9 @@ check AMD / Qualcomm / Apple / Google manually.
 
 ### Current filters (see `config.json`)
 
-- **`intern_only: true`** — only postings with "intern"/"co-op" in the title.
+- **`intern_only: false`** — tracks **all levels**. Each role is tagged
+  **[Intern] / [New Grad] / [Full-time]** in the email, sorted intern-first.
+  Set this back to `true` to get internships only.
 - **Keywords** — verification, RTL, Verilog, UVM, computer architecture, DV,
   **FPGA, validation, DFT**.
 - **`us_only: true`** — drops obviously non-US locations.
