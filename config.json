@@ -1,0 +1,44 @@
+{
+  "alert_to": "hnarra@usc.edu",
+  "us_only": true,
+  "manual_companies": [
+    "AMD",
+    "Qualcomm",
+    "Apple",
+    "Google"
+  ],
+  "manual_note": "These boards block automated checks - set a LinkedIn job alert for 'Design Verification' in the United States to cover them.",
+  "match_terms": [
+    "verif",
+    "rtl",
+    "verilog",
+    "uvm",
+    "computer architect",
+    "microarchitect",
+    "design verification",
+    "dv "
+  ],
+  "workday_search_terms": [
+    "design verification",
+    "verification",
+    "RTL",
+    "Verilog",
+    "UVM",
+    "computer architecture"
+  ],
+  "sources": [
+    { "company": "Tenstorrent (University)", "type": "greenhouse", "slug": "tenstorrentuniversity" },
+    { "company": "Tenstorrent", "type": "greenhouse", "slug": "tenstorrent" },
+    { "company": "Cerebras", "type": "greenhouse", "slug": "cerebrassystems" },
+    { "company": "SambaNova", "type": "greenhouse", "slug": "sambanovasystems" },
+    { "company": "Lightmatter", "type": "greenhouse", "slug": "lightmatter" },
+    { "company": "Etched", "type": "ashby", "slug": "etched" },
+    { "company": "d-Matrix", "type": "ashby", "slug": "d-matrix" },
+    { "company": "Mythic", "type": "lever", "slug": "mythic-ai.com" },
+    { "company": "NVIDIA", "type": "workday", "host": "nvidia.wd5.myworkdayjobs.com", "tenant": "nvidia", "site": "NVIDIAExternalCareerSite" },
+    { "company": "Intel", "type": "workday", "host": "intel.wd1.myworkdayjobs.com", "tenant": "intel", "site": "External" },
+    { "company": "Broadcom", "type": "workday", "host": "broadcom.wd1.myworkdayjobs.com", "tenant": "broadcom", "site": "External_Career" },
+    { "company": "Marvell", "type": "workday", "host": "marvell.wd1.myworkdayjobs.com", "tenant": "marvell", "site": "MarvellCareers2" },
+    { "company": "Micron", "type": "workday", "host": "micron.wd1.myworkdayjobs.com", "tenant": "micron", "site": "External" }
+  ]
+}
