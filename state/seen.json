@@ -244,6 +244,7 @@
 "wd:intel:JR0284150",
 "wd:intel:JR0284310",
 "wd:intel:JR0284612",
+"wd:intel:JR0284623",
 "wd:intel:JR0284688",
 "wd:marvell:2502786",
 "wd:marvell:2503604",
@@ -332,5 +333,6 @@
 "wd:nvidia:JR2018350",
 "wd:nvidia:JR2018368",
 "wd:nvidia:JR2018584",
-"wd:nvidia:JR2019303"
+"wd:nvidia:JR2019303",
+"wd:nvidia:JR2019332"
 ]
