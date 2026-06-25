@@ -256,6 +256,7 @@
 "li:4432570537",
 "li:4432582332",
 "li:4432847949",
+"li:4432857865",
 "wd:broadcom:R024030",
 "wd:broadcom:R024254",
 "wd:broadcom:R024631",
@@ -421,5 +422,6 @@
 "wd:nvidia:JR2018584",
 "wd:nvidia:JR2018920",
 "wd:nvidia:JR2019303",
-"wd:nvidia:JR2019332"
+"wd:nvidia:JR2019332",
+"wd:nvidia:JR2019927"
 ]
