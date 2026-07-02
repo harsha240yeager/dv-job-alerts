@@ -258,6 +258,7 @@
 "li:4429568844",
 "li:4429571472",
 "li:4429650986",
+"li:4429695044",
 "li:4430284300",
 "li:4430416550",
 "li:4430648778",
@@ -340,6 +341,7 @@
 "wd:intel:JR0284150",
 "wd:intel:JR0284153",
 "wd:intel:JR0284310",
+"wd:intel:JR0284403",
 "wd:intel:JR0284612",
 "wd:intel:JR0284623",
 "wd:intel:JR0284688",
@@ -462,5 +464,6 @@
 "wd:nvidia:JR2019303",
 "wd:nvidia:JR2019332",
 "wd:nvidia:JR2019927",
+"wd:nvidia:JR2020428",
 "wd:nvidia:JR2020484"
 ]
