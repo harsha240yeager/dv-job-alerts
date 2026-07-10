@@ -165,6 +165,7 @@
 "li:4410852664",
 "li:4411291201",
 "li:4411294170",
+"li:4411295139",
 "li:4411299093",
 "li:4411401064",
 "li:4411846041",
@@ -384,6 +385,8 @@
 "wd:intel:JR0285404",
 "wd:intel:JR0285455",
 "wd:intel:JR0285487",
+"wd:intel:JR0285498",
+"wd:intel:JR0285537",
 "wd:marvell:2502786",
 "wd:marvell:2503604",
 "wd:marvell:2600895",
@@ -504,5 +507,6 @@
 "wd:nvidia:JR2020119",
 "wd:nvidia:JR2020428",
 "wd:nvidia:JR2020484",
-"wd:nvidia:JR2020872"
+"wd:nvidia:JR2020872",
+"wd:nvidia:JR2021189"
 ]
