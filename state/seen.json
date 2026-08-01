@@ -568,6 +568,7 @@
 "wd:micron:JR107316",
 "wd:micron:JR88173",
 "wd:micron:JR89935",
+"wd:micron:JR91608",
 "wd:micron:JR92821",
 "wd:micron:JR93094",
 "wd:micron:JR93231",
@@ -673,5 +674,7 @@
 "wd:nvidia:JR2020895",
 "wd:nvidia:JR2021189",
 "wd:nvidia:JR2021385",
-"wd:nvidia:JR2021841"
+"wd:nvidia:JR2021841",
+"wd:nvidia:JR2022321",
+"wd:nvidia:JR2022323"
 ]
