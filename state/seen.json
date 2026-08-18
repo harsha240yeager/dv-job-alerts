@@ -36,8 +36,10 @@
 "gh:lightmatter:5369458008",
 "gh:lightmatter:5371683008",
 "gh:lightmatter:5372084008",
+"gh:lightmatter:5386967008",
 "gh:sambanovasystems:5850481004",
 "gh:sambanovasystems:6145409004",
+"gh:sambanovasystems:6145477004",
 "gh:tenstorrent:4738082007",
 "gh:tenstorrent:4964425007",
 "gh:tenstorrent:4992540007",
@@ -768,6 +770,7 @@
 "wd:nvidia:JR2022280",
 "wd:nvidia:JR2022321",
 "wd:nvidia:JR2022323",
+"wd:nvidia:JR2022681",
 "wd:nvidia:JR2023089",
 "wd:nvidia:JR2023239"
 ]
