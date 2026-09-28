@@ -719,6 +719,7 @@
 "wd:broadcom:R027132",
 "wd:broadcom:R027133",
 "wd:broadcom:R027158",
+"wd:broadcom:R027173",
 "wd:intel:JR0279196",
 "wd:intel:JR0280548",
 "wd:intel:JR0280552",
@@ -802,6 +803,8 @@
 "wd:intel:JR0287218",
 "wd:intel:JR0287272",
 "wd:intel:JR0287296",
+"wd:intel:JR0287351",
+"wd:intel:JR0287395",
 "wd:intel:JR0287495",
 "wd:marvell:2502786",
 "wd:marvell:2503604",
@@ -865,6 +868,7 @@
 "wd:micron:JR112182",
 "wd:micron:JR112184",
 "wd:micron:JR113312",
+"wd:micron:JR113590",
 "wd:micron:JR88173",
 "wd:micron:JR89935",
 "wd:micron:JR91608",
@@ -997,5 +1001,8 @@
 "wd:nvidia:JR2023854",
 "wd:nvidia:JR2024958",
 "wd:nvidia:JR2025192",
-"wd:nvidia:JR2025616"
+"wd:nvidia:JR2025564",
+"wd:nvidia:JR2025616",
+"wd:nvidia:JR2025937",
+"wd:nvidia:JR2025963"
 ]
