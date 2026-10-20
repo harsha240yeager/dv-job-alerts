@@ -740,7 +740,9 @@
 "li:4480370122",
 "li:4480382032",
 "li:4480464804",
+"li:4480725312",
 "li:4480839294",
+"li:4481754810",
 "wd:broadcom:R024030",
 "wd:broadcom:R024254",
 "wd:broadcom:R024631",
@@ -803,6 +805,7 @@
 "wd:broadcom:R027358",
 "wd:broadcom:R027360",
 "wd:broadcom:R027369",
+"wd:broadcom:R027378",
 "wd:intel:JR0279196",
 "wd:intel:JR0280548",
 "wd:intel:JR0280552",
@@ -891,6 +894,7 @@
 "wd:intel:JR0287454",
 "wd:intel:JR0287495",
 "wd:intel:JR0287607",
+"wd:intel:JR0287651",
 "wd:intel:JR0287702",
 "wd:intel:JR0287706",
 "wd:intel:JR0287760",
@@ -904,6 +908,7 @@
 "wd:intel:JR0288189",
 "wd:intel:JR0288190",
 "wd:intel:JR0288212",
+"wd:intel:JR0288228",
 "wd:intel:JR0288243",
 "wd:intel:JR0288244",
 "wd:intel:JR0288245",
@@ -1127,5 +1132,6 @@
 "wd:nvidia:JR2026996",
 "wd:nvidia:JR2027111",
 "wd:nvidia:JR2027454",
-"wd:nvidia:JR2027906"
+"wd:nvidia:JR2027906",
+"wd:nvidia:JR2028225"
 ]
