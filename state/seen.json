@@ -866,6 +866,9 @@
 "wd:broadcom:R027496",
 "wd:broadcom:R027526",
 "wd:broadcom:R027621",
+"wd:broadcom:R027642",
+"wd:broadcom:R027650",
+"wd:broadcom:R027651",
 "wd:broadcom:R027685",
 "wd:broadcom:R027686",
 "wd:broadcom:R027687",
@@ -1234,5 +1237,6 @@
 "wd:nvidia:JR2028303",
 "wd:nvidia:JR2028411",
 "wd:nvidia:JR2028636",
-"wd:nvidia:JR2028848"
+"wd:nvidia:JR2028848",
+"wd:nvidia:JR2029798"
 ]
