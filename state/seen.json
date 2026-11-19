@@ -74,6 +74,7 @@
 "gh:tenstorrent:5270525007",
 "gh:tenstorrent:5284404007",
 "gh:tenstorrent:5293941007",
+"gh:tenstorrent:5300531007",
 "gh:tenstorrentuniversity:4501100007",
 "gh:tenstorrentuniversity:4501134007",
 "gh:tenstorrentuniversity:4522665007",
@@ -829,6 +830,7 @@
 "li:4491177909",
 "li:4491567917",
 "li:4491831861",
+"li:4492136696",
 "wd:broadcom:R024030",
 "wd:broadcom:R024254",
 "wd:broadcom:R024631",
@@ -1296,5 +1298,7 @@
 "wd:nvidia:JR2029749",
 "wd:nvidia:JR2029750",
 "wd:nvidia:JR2029765",
-"wd:nvidia:JR2029798"
+"wd:nvidia:JR2029798",
+"wd:nvidia:JR2029934",
+"wd:nvidia:JR2029944"
 ]
